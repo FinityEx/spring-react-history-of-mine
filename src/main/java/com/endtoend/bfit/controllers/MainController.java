@@ -1,14 +1,17 @@
 package com.endtoend.bfit.controllers;
 
+import com.endtoend.bfit.forms.UserForm;
+import com.endtoend.bfit.models.User;
 import com.endtoend.bfit.service.UserService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Objects;
 
 @RestController
 public class MainController {
 
+    @Autowired
     private final UserService userService;
 
     public MainController(UserService userService) {
@@ -20,18 +23,32 @@ public class MainController {
         return "Hello world";
     }
 
-    @PostMapping("/createUser/{username}/{password}")
-    public void createUser(@PathVariable() String username, @PathVariable String password){
-        userService.saveUser(username, password);
+    @PostMapping("/createUser")
+    public String createUser(@RequestBody UserForm userForm){
+        userService.saveUser(userForm);
+        return "udalo sie";
     }
 
-    @GetMapping("/findUser/{username}")
-    public String findUser(@PathVariable String username){
-        var user = userService.getUser(username);
-        if(user.get() != null){
-            return user.get().getId().toString();
+    @GetMapping("/findUser/")
+    public User findUser(UserForm userForm){
+        var user = userService.getUser(userForm.getUsername());
+        return user.orElse(null);
+    }
+
+    @DeleteMapping("/deleteUser/")
+    public void deleteUser(@RequestBody UserForm userForm) {
+        var user = userService.getUser(userForm.getUsername());
+        if (user.isPresent() && Objects.equals(user.get().getPassword(), userForm.getPassword())) {
+            userService.deleteUser(userForm.getUsername());
         }
-        return null;
+    }
+
+    @PutMapping("/updatePassword")
+    public void updatePassword(@RequestBody UserForm userForm){
+        var updateUser = findUser(userForm);
+        if(userForm.getPassword().equals(updateUser.getPassword())) {
+            userService.updatePassword(userForm);
+        }
     }
 
 
