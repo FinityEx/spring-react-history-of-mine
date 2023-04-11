@@ -3,7 +3,7 @@ version: '3.9'
 services:
   bfit:
     container_name: bfit
-    image: finityex/bfit:1.0.1
+    image: finityex/bfit:latest
     build: .
     ports:
       - 8080:8080
