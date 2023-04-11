@@ -48,7 +48,7 @@ public class UserService{
         var updateOptionalUser = getUser(userDTO);
         if(updateOptionalUser != null &&
                 userDTO.getPassword().equals(updateOptionalUser.getPassword())) {
-            updateOptionalUser.setPassword(userDTO.getNewPassword());
+            updateOptionalUser.setPassword(userDTO.getPassword());
             usersRepository.saveAndFlush(updateOptionalUser);
             return true;
         }

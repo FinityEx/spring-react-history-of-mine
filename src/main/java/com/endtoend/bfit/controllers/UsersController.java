@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-@RestController
+@RestController("/user")
 public class UsersController {
 
     @Autowired
@@ -16,12 +16,8 @@ public class UsersController {
         this.userService = userService;
     }
 
-    @GetMapping("/hello")
-    public String mainPage(){
-        return "Hello world";
-    }
 
-    @PostMapping("/createUser")
+    @PostMapping
     public HttpStatus createUser(@RequestBody UserDTO userDTO){
         if(userService.createUser(userDTO) != null) {
             return HttpStatus.CREATED;
@@ -29,13 +25,13 @@ public class UsersController {
         return HttpStatus.BAD_REQUEST;
     }
 
-    @GetMapping("/findUser/")
+    @GetMapping
     public HttpStatus findUser(@RequestBody UserDTO userDTO){
       return userService.getUser(userDTO) == null ?
               HttpStatus.NOT_FOUND : HttpStatus.FOUND;
     }
 
-    @DeleteMapping("/deleteUser/")
+    @DeleteMapping
     public HttpStatus deleteUser(@RequestBody UserDTO userDTO) {
         if(userService.deleteUser(userDTO)) {
             return HttpStatus.OK;
@@ -45,7 +41,7 @@ public class UsersController {
         }
     }
 
-    @PutMapping("/updatePassword")
+    @PutMapping
     public HttpStatus updatePassword(@RequestBody UserDTO userDTO) {
         if (userService.updatePassword(userDTO)) {
             return HttpStatus.ACCEPTED;
