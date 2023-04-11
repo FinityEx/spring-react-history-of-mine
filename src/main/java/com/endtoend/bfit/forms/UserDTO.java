@@ -3,7 +3,6 @@ package com.endtoend.bfit.forms;
 public class UserDTO {
     private String username;
     private String password;
-
     private String newPassword;
 
     public UserDTO(String username, String password, String newPassword) {
