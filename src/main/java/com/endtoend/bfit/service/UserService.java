@@ -3,6 +3,7 @@ package com.endtoend.bfit.service;
 import com.endtoend.bfit.forms.UserForm;
 import com.endtoend.bfit.models.User;
 import com.endtoend.bfit.repositories.UsersRepository;
+import com.endtoend.bfit.websecurity.BCryptEncoding;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,7 +19,7 @@ public class UserService{
 
     public User createUser(final UserForm userForm){
         if(!usersRepository.existsByUsername(userForm.getUsername())) {
-            final User user = new User(UUID.randomUUID(), userForm.getUsername(), userForm.getPassword());
+            final User user = new User(UUID.randomUUID(), userForm.getUsername(), BCryptEncoding.encode(userForm.getPassword()));
             usersRepository.saveAndFlush(user);
             return user;
         }
