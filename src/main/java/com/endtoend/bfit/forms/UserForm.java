@@ -1,9 +1,9 @@
 package com.endtoend.bfit.forms;
 
-public class UserDTO {
+public class UserForm {
     private String username;
     private String password;
-    public UserDTO(String username, String password, String newPassword) {
+    public UserForm(String username, String password, String newPassword) {
         this.username = username;
         this.password = password;
     }

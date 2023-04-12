@@ -1,12 +1,14 @@
 package com.endtoend.bfit.controllers;
 
-import com.endtoend.bfit.forms.UserDTO;
+import com.endtoend.bfit.forms.UserForm;
+import com.endtoend.bfit.models.User;
 import com.endtoend.bfit.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-@RestController("/user")
+@RestController
+@RequestMapping("/user")
 public class UsersController {
 
     @Autowired
@@ -18,22 +20,21 @@ public class UsersController {
 
 
     @PostMapping
-    public HttpStatus createUser(@RequestBody UserDTO userDTO){
-        if(userService.createUser(userDTO) != null) {
+    public HttpStatus createUser(@RequestBody UserForm userForm){
+        if(userService.createUser(userForm) != null) {
             return HttpStatus.CREATED;
         }
         return HttpStatus.BAD_REQUEST;
     }
 
     @GetMapping
-    public HttpStatus findUser(@RequestBody UserDTO userDTO){
-      return userService.getUser(userDTO) == null ?
-              HttpStatus.NOT_FOUND : HttpStatus.FOUND;
+    public User findUser(@RequestParam String username){
+        return userService.getUser(username);
     }
 
     @DeleteMapping
-    public HttpStatus deleteUser(@RequestBody UserDTO userDTO) {
-        if(userService.deleteUser(userDTO)) {
+    public HttpStatus deleteUser(@RequestBody UserForm userForm) {
+        if(userService.deleteUser(userForm)) {
             return HttpStatus.OK;
         }
         else {
@@ -42,8 +43,8 @@ public class UsersController {
     }
 
     @PutMapping
-    public HttpStatus updatePassword(@RequestBody UserDTO userDTO) {
-        if (userService.updatePassword(userDTO)) {
+    public HttpStatus updatePassword(@RequestBody UserForm userForm) {
+        if (userService.updatePassword(userForm)) {
             return HttpStatus.ACCEPTED;
         }
         return HttpStatus.BAD_REQUEST;
