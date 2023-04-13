@@ -3,35 +3,39 @@ package com.endtoend.bfit.service;
 import com.endtoend.bfit.forms.UserForm;
 import com.endtoend.bfit.models.User;
 import com.endtoend.bfit.repositories.UsersRepository;
-import com.endtoend.bfit.websecurity.BCryptEncoding;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.endtoend.bfit.utils.JWTUtils;
+import com.endtoend.bfit.utils.UserUtils;
+import com.endtoend.bfit.websecurity.AuthenticationResponse;
+import jakarta.persistence.EntityExistsException;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.util.UUID;
-
 @Service
-public class UserService{
-    @Autowired
+public class UserService implements UserDetailsService {
     private final UsersRepository usersRepository;
+
     public UserService(UsersRepository usersRepository) {
         this.usersRepository = usersRepository;
     }
 
-    public User createUser(final UserForm userForm){
+    public AuthenticationResponse createUser(final UserForm userForm){
         if(!usersRepository.existsByUsername(userForm.getUsername())) {
-            final User user = new User(UUID.randomUUID(), userForm.getUsername(), BCryptEncoding.encode(userForm.getPassword()));
+            var user = UserUtils.createNewUser(userForm);
             usersRepository.saveAndFlush(user);
-            return user;
+            user = getUser(userForm.getUsername());
+            return new AuthenticationResponse(JWTUtils.generateToken(user));
         }
-        return null;
-    }
+        throw new EntityExistsException("Username already exists");
+     }
 
     public User getUser(final String username){
         var optionalUser = usersRepository.findByUsername(username);
         if(optionalUser.isPresent()) {
             return optionalUser.get();
         }
-        return null;
+        throw new UsernameNotFoundException("Username has not been found");
     }
 
     public boolean deleteUser(final UserForm userForm){
@@ -54,5 +58,10 @@ public class UserService{
             return true;
         }
         return false;
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        return getUser(username);
     }
 }

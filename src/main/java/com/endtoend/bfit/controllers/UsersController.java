@@ -3,8 +3,10 @@ package com.endtoend.bfit.controllers;
 import com.endtoend.bfit.forms.UserForm;
 import com.endtoend.bfit.models.User;
 import com.endtoend.bfit.service.UserService;
+import com.endtoend.bfit.websecurity.AuthenticationResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -20,17 +22,17 @@ public class UsersController {
 
 
     @PostMapping
-    public HttpStatus createUser(@RequestBody UserForm userForm){
-        if(userService.createUser(userForm) != null) {
-            return HttpStatus.CREATED;
-        }
-        return HttpStatus.BAD_REQUEST;
+    public ResponseEntity<AuthenticationResponse> createUser(@RequestBody UserForm userForm){
+        return ResponseEntity.ok(userService.createUser(userForm));
     }
 
     @GetMapping
     public User findUser(@RequestParam String username){
         return userService.getUser(username);
     }
+
+    @GetMapping("/hello")
+    public String hello(){return "Hello from secured endpoint";}
 
     @DeleteMapping
     public HttpStatus deleteUser(@RequestBody UserForm userForm) {

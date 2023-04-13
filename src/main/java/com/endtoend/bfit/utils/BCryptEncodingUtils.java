@@ -1,8 +1,10 @@
-package com.endtoend.bfit.websecurity;
+package com.endtoend.bfit.utils;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Service;
 
-public class BCryptEncoding {
+@Service
+public class BCryptEncodingUtils {
     private static final BCryptPasswordEncoder ENCODER = new BCryptPasswordEncoder();
 
     public static BCryptPasswordEncoder getEncoder(){

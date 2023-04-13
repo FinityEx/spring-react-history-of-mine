@@ -1,11 +1,16 @@
 package com.endtoend.bfit.forms;
 
+import jakarta.annotation.Nullable;
+
 public class UserForm {
     private String username;
     private String password;
-    public UserForm(String username, String password, String newPassword) {
+    private String email;
+
+    public UserForm(String username, String password, @Nullable String email) {
         this.username = username;
         this.password = password;
+        this.email = email;
     }
 
     public String getUsername() {
@@ -24,4 +29,30 @@ public class UserForm {
         this.password = password;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public final static class AuthenticationForm{
+        private final String username;
+        private final String password;
+
+        public AuthenticationForm(String username, String password) {
+            this.username = username;
+            this.password = password;
+        }
+
+        public String getUsername() {
+            return username;
+        }
+
+        public String getPassword() {
+            return password;
+        }
+
+    }
 }
