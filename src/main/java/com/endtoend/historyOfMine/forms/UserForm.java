@@ -1,4 +1,4 @@
-package com.endtoend.bfit.forms;
+package com.endtoend.historyOfMine.forms;
 
 import jakarta.annotation.Nullable;
 
@@ -37,22 +37,7 @@ public class UserForm {
         this.email = email;
     }
 
-    public final static class AuthenticationForm{
-        private final String username;
-        private final String password;
-
-        public AuthenticationForm(String username, String password) {
-            this.username = username;
-            this.password = password;
-        }
-
-        public String getUsername() {
-            return username;
-        }
-
-        public String getPassword() {
-            return password;
-        }
+    public record AuthenticationForm(String username, String password) {
 
     }
 }

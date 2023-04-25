@@ -1,17 +1,15 @@
-package com.endtoend.bfit.controllers;
+package com.endtoend.historyOfMine.controllers;
 
-import com.endtoend.bfit.forms.UserForm;
-import com.endtoend.bfit.websecurity.AuthService;
-import com.endtoend.bfit.websecurity.AuthenticationResponse;
+import com.endtoend.historyOfMine.forms.UserForm;
+import com.endtoend.historyOfMine.websecurity.AuthService;
+import com.endtoend.historyOfMine.websecurity.AuthenticationResponse;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 
-@Controller
-@RequestMapping("/login")
+//@RestController
+//@RequestMapping("/login")
 public class LoginController {
     private final AuthService authService;
 

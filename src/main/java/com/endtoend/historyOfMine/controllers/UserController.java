@@ -1,36 +1,36 @@
-package com.endtoend.bfit.controllers;
+package com.endtoend.historyOfMine.controllers;
 
-import com.endtoend.bfit.forms.UserForm;
-import com.endtoend.bfit.models.User;
-import com.endtoend.bfit.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.endtoend.historyOfMine.forms.UserForm;
+import com.endtoend.historyOfMine.service.UserService;
+import com.endtoend.historyOfMine.tables.User;
+import com.endtoend.historyOfMine.websecurity.AuthenticationResponse;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/user")
-public class UsersController {
+public class UserController {
 
-    @Autowired
     private final UserService userService;
 
-    public UsersController(UserService userService) {
+    public UserController(UserService userService) {
         this.userService = userService;
     }
 
 
     @PostMapping
-    public HttpStatus createUser(@RequestBody UserForm userForm){
-        if(userService.createUser(userForm) != null) {
-            return HttpStatus.CREATED;
-        }
-        return HttpStatus.BAD_REQUEST;
+    public ResponseEntity<AuthenticationResponse> createUser(@RequestBody UserForm userForm){
+        return ResponseEntity.ok(userService.createUser(userForm));
     }
 
     @GetMapping
     public User findUser(@RequestParam String username){
         return userService.getUser(username);
     }
+
+    @GetMapping("/hello")
+    public String hello(){return "Hello from secured endpoint";}
 
     @DeleteMapping
     public HttpStatus deleteUser(@RequestBody UserForm userForm) {

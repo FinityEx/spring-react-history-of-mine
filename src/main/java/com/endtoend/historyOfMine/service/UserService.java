@@ -1,28 +1,40 @@
-package com.endtoend.bfit.service;
+package com.endtoend.historyOfMine.service;
 
-import com.endtoend.bfit.forms.UserForm;
-import com.endtoend.bfit.models.User;
-import com.endtoend.bfit.repositories.UsersRepository;
-import com.endtoend.bfit.utils.JWTUtils;
-import com.endtoend.bfit.utils.UserUtils;
-import com.endtoend.bfit.websecurity.AuthenticationResponse;
+import com.endtoend.historyOfMine.forms.UserForm;
+import com.endtoend.historyOfMine.repositories.RelativesRepository;
+import com.endtoend.historyOfMine.repositories.UsersRepository;
+import com.endtoend.historyOfMine.tables.User;
+import com.endtoend.historyOfMine.utils.RelativeUtils;
+import com.endtoend.historyOfMine.utils.UserUtils;
+import com.endtoend.historyOfMine.utils.securityutils.JWTUtils;
+import com.endtoend.historyOfMine.websecurity.AuthenticationResponse;
 import jakarta.persistence.EntityExistsException;
+import org.springframework.security.authentication.AuthenticationServiceException;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.UUID;
+
 @Service
 public class UserService implements UserDetailsService {
     private final UsersRepository usersRepository;
+    private final UserUtils userUtils;
+    private final RelativesRepository relativesRepository;
+    private final RelativeUtils relativeUtils;
 
-    public UserService(UsersRepository usersRepository) {
+    public UserService(UsersRepository usersRepository, UserUtils userUtils, RelativesRepository relativesRepository, RelativeUtils relativeUtils) {
         this.usersRepository = usersRepository;
+        this.userUtils = userUtils;
+        this.relativesRepository = relativesRepository;
+        this.relativeUtils = relativeUtils;
     }
 
     public AuthenticationResponse createUser(final UserForm userForm){
         if(!usersRepository.existsByUsername(userForm.getUsername())) {
-            var user = UserUtils.createNewUser(userForm);
+            var user = userUtils.create(userForm);
             usersRepository.saveAndFlush(user);
             user = getUser(userForm.getUsername());
             return new AuthenticationResponse(JWTUtils.generateToken(user));
@@ -36,6 +48,24 @@ public class UserService implements UserDetailsService {
             return optionalUser.get();
         }
         throw new UsernameNotFoundException("Username has not been found");
+    }
+
+    public User getLoggedUser(){
+        var auth = SecurityContextHolder.getContext().getAuthentication();
+        if(auth.isAuthenticated()) {
+            var user = usersRepository.findByUsername(auth.getName());
+            if(user.isPresent()) {
+                return user.get();
+            } else {
+                throw new UsernameNotFoundException("Username not found!");
+            }
+        } else {
+            throw new AuthenticationServiceException("User is not logged in!");
+        }
+    }
+
+    public UUID getLoggedUserUUID(){
+        return getLoggedUser().getId();
     }
 
     public boolean deleteUser(final UserForm userForm){
