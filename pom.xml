@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.endtoend</groupId>
-	<artifactId>bfit</artifactId>
+	<artifactId>HistoryOfMine</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>bfit</name>
 	<description>bfitdemo</description>

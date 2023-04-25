@@ -1,20 +1,16 @@
-package com.endtoend.bfit.models;
+package com.endtoend.historyOfMine.tables;
 
 
-import com.endtoend.bfit.websecurity.Authority;
+import com.endtoend.historyOfMine.websecurity.Authority;
 import jakarta.persistence.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.UUID;
+import java.util.*;
 
 @Entity
-@Table(name = "users")
  public class User implements UserDetails{
     @Id
-    @Column(name = "id")
     @GeneratedValue
     private UUID id;
     @Column
@@ -25,9 +21,17 @@ import java.util.UUID;
     private String email;
     @Column
     private boolean accountNonLocked;
-
     @Enumerated(EnumType.STRING)
     private Authority authority;
+    private String name;
+    @Enumerated(EnumType.STRING)
+    private Relative.Sex sex;
+    private String lastName;
+    private Date birth;
+    @Column(name = "place_of_birth")
+    private String placeOfBirth;
+    @OneToMany(mappedBy = "user")
+    private List<Relative> relatives;
 
     private User(){}
 
@@ -97,4 +101,54 @@ import java.util.UUID;
     public void setAccountNonLocked(boolean accountNonLocked) {
         this.accountNonLocked = accountNonLocked;
     }
+
+    public List<Relative> getRelatives() {
+        return relatives;
+    }
+
+    public void addRelative(Relative relative){
+        this.relatives.add(relative);
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Relative.Sex getSex() {
+        return sex;
+    }
+
+    public void setSex(Relative.Sex sex) {
+        this.sex = sex;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public Date getBirth() {
+        return birth;
+    }
+
+    public void setBirth(Date birth) {
+        this.birth = birth;
+    }
+
+    public String getPlaceOfBirth() {
+        return placeOfBirth;
+    }
+
+    public void setPlaceOfBirth(String placeOfBirth) {
+        this.placeOfBirth = placeOfBirth;
+    }
+
+
 }

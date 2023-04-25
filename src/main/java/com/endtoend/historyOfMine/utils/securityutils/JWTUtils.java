@@ -1,4 +1,4 @@
-package com.endtoend.bfit.utils;
+package com.endtoend.historyOfMine.utils.securityutils;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtParser;
@@ -15,7 +15,7 @@ public class JWTUtils {
     private static final String SECRET = "6E327234753778214125442A472D4B6150645367566B59703373367638792F42";
     private static final Key SIGNING_KEY = Keys.hmacShaKeyFor(Decoders.BASE64.decode(SECRET));
     private static final JwtParser jwtParser = Jwts.parserBuilder().setSigningKey(SIGNING_KEY).build();
-    private static final long minutesFromNowInMils = 60 * 60 * 1000;
+    private static final long minutesFromNowInMils = 300 * 60 * 1000;
 
 
     public static String generateToken(UserDetails userDetails){
