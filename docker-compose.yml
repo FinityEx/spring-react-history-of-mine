@@ -1,4 +1,4 @@
-version: '3.9'
+version: '4.0'
 
 services:
   history_of_mine:
@@ -8,9 +8,9 @@ services:
     ports:
       - 8080:8080
     environment:
-      - DATABASE_URL=jdbc:postgresql://hom_db:5432/hom
-      - DATABASE_USERNAME=postgres
-      - DATABASE_PASSWORD=wojtek
+      - DATABASE_URL=#yourDatabaseURL#
+      - DATABASE_USERNAME=#yourDatabaseUsername#
+      - DATABASE_PASSWORD=#yourDatabasePassword#
     depends_on:
       - hom_db
       - hom_pgadmin
@@ -20,9 +20,9 @@ services:
     ports:
       - 5432:5432
     environment:
-      POSTGRES_PASSWORD: wojtek
-      POSTGRES_USER: postgres
-      POSTGRES_DB: hom
+      POSTGRES_PASSWORD: #yourDatabasePassword#
+      POSTGRES_USER: #yourDatabaseUsername#
+      POSTGRES_DB: #yourDatabaseName#
     volumes:
       - pgdata:/var/lib/postgresql/data
   hom_pgadmin:
