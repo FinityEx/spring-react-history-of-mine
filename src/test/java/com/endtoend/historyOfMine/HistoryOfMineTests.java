@@ -1,10 +1,10 @@
-package com.endtoend.bfit;
+package com.endtoend.historyOfMine;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class BfitApplicationTests {
+class HistoryOfMineTests {
 
 	@Test
 	void contextLoads() {
