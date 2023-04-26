@@ -6,10 +6,11 @@ import com.endtoend.historyOfMine.utils.securityutils.BCryptEncodingUtils;
 import com.endtoend.historyOfMine.utils.securityutils.JWTUtils;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.stereotype.Service;
 
 import java.util.Objects;
 
-//@Service
+@Service
 public class AuthService {
     private final AuthenticationManager authenticationManager;
     private final UserService userService;

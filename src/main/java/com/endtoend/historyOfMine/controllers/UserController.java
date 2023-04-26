@@ -29,8 +29,6 @@ public class UserController {
         return userService.getUser(username);
     }
 
-    @GetMapping("/hello")
-    public String hello(){return "Hello from secured endpoint";}
 
     @DeleteMapping
     public HttpStatus deleteUser(@RequestBody UserForm userForm) {
