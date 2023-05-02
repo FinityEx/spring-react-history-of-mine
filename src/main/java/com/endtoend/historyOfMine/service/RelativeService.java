@@ -3,7 +3,7 @@ package com.endtoend.historyOfMine.service;
 import com.endtoend.historyOfMine.forms.RelativeForm;
 import com.endtoend.historyOfMine.repositories.RelativesRepository;
 import com.endtoend.historyOfMine.repositories.UsersRepository;
-import com.endtoend.historyOfMine.tables.Relative;
+import com.endtoend.historyOfMine.models.Relative;
 import com.endtoend.historyOfMine.utils.RelativeUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.lang.NonNull;

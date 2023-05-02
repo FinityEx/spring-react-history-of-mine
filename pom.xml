@@ -11,8 +11,8 @@
 	<groupId>com.endtoend</groupId>
 	<artifactId>HistoryOfMine</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>bfit</name>
-	<description>bfitdemo</description>
+	<name>history-of-mine</name>
+	<description>history-of-mine-demo</description>
 	<properties>
 		<java.version>17</java.version>
 	</properties>

@@ -1,7 +1,7 @@
 package com.endtoend.historyOfMine.forms;
 
-import com.endtoend.historyOfMine.tables.Relative;
-import com.endtoend.historyOfMine.tables.User;
+import com.endtoend.historyOfMine.models.Relative;
+import com.endtoend.historyOfMine.models.User;
 
 import java.util.Date;
 import java.util.Objects;

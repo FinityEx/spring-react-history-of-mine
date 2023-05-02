@@ -2,7 +2,7 @@ package com.endtoend.historyOfMine.controllers;
 
 import com.endtoend.historyOfMine.forms.UserForm;
 import com.endtoend.historyOfMine.service.UserService;
-import com.endtoend.historyOfMine.tables.User;
+import com.endtoend.historyOfMine.models.User;
 import com.endtoend.historyOfMine.websecurity.AuthenticationResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,6 +29,8 @@ public class UserController {
         return userService.getUser(username);
     }
 
+    @GetMapping("/hello")
+    public String hello(){return "Hello from secured endpoint";}
 
     @DeleteMapping
     public HttpStatus deleteUser(@RequestBody UserForm userForm) {

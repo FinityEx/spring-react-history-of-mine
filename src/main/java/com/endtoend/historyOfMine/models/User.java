@@ -1,8 +1,8 @@
-package com.endtoend.historyOfMine.tables;
+package com.endtoend.historyOfMine.models;
 
 
-import com.endtoend.historyOfMine.websecurity.Authority;
 import jakarta.persistence.*;
+import org.hibernate.annotations.GenericGenerator;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -11,9 +11,18 @@ import java.util.*;
 @Entity
  public class User implements UserDetails{
     @Id
-    @GeneratedValue
+    @GeneratedValue(generator = "sequence-generator")
+    @GenericGenerator(
+            name = "sequence-generator",
+            strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator",
+            parameters = {
+                    @org.hibernate.annotations.Parameter(name = "sequence_name", value = "user_sequence"),
+                    @org.hibernate.annotations.Parameter(name = "initial_value", value = "2"),
+                    @org.hibernate.annotations.Parameter(name = "increment_size", value = "1")
+            }
+    )
     private UUID id;
-    @Column
+    @Column(nullable = false, unique = true)
     private String username;
     @Column
     private String password;
@@ -21,6 +30,7 @@ import java.util.*;
     private String email;
     @Column
     private boolean accountNonLocked;
+    private boolean enabled;
     @Enumerated(EnumType.STRING)
     private Authority authority;
     private String name;
@@ -35,15 +45,13 @@ import java.util.*;
 
     private User(){}
 
-    public User(UUID id, String username, String password, String email) {
-        this.id = id;
+    public User(String username, String password, String email) {
         this.username = username;
         this.password = password;
         this.email = email;
         this.accountNonLocked = true;
         this.authority = Authority.USER;
     }
-
 
     public UUID getId() {
         return id;
@@ -70,7 +78,7 @@ import java.util.*;
 
     @Override
     public boolean isEnabled() {
-        return true;
+        return enabled;
     }
 
     @Override

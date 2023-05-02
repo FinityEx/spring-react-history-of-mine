@@ -1,6 +1,7 @@
-package com.endtoend.historyOfMine.tables;
+package com.endtoend.historyOfMine.models;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.GenericGenerator;
 
 import java.util.Date;
 import java.util.UUID;
@@ -8,8 +9,17 @@ import java.util.UUID;
 @Entity
 public class Relative  {
     @Id
-    @GeneratedValue
-    private UUID uuid;
+    @GeneratedValue(generator = "sequence-generator")
+    @GenericGenerator(
+            name = "sequence-generator",
+            strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator",
+            parameters = {
+                    @org.hibernate.annotations.Parameter(name = "sequence_name", value = "relative_sequence"),
+                    @org.hibernate.annotations.Parameter(name = "initial_value", value = "1"),
+                    @org.hibernate.annotations.Parameter(name = "increment_size", value = "1")
+            }
+    )
+    private Long id;
     @ManyToOne
     private User user;
     protected String name;
@@ -28,10 +38,6 @@ public class Relative  {
     public Relative() {
     }
 
-    public Relative(UUID uuid){
-        this.uuid = uuid;
-    }
-
     public User getUser() {
         return user;
     }
@@ -40,8 +46,8 @@ public class Relative  {
         this.user = user;
     }
 
-    public UUID getUuid() {
-        return uuid;
+    public Long getId() {
+        return id;
     }
 
 

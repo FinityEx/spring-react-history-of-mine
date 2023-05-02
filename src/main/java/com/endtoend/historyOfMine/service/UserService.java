@@ -3,7 +3,7 @@ package com.endtoend.historyOfMine.service;
 import com.endtoend.historyOfMine.forms.UserForm;
 import com.endtoend.historyOfMine.repositories.RelativesRepository;
 import com.endtoend.historyOfMine.repositories.UsersRepository;
-import com.endtoend.historyOfMine.tables.User;
+import com.endtoend.historyOfMine.models.User;
 import com.endtoend.historyOfMine.utils.RelativeUtils;
 import com.endtoend.historyOfMine.utils.UserUtils;
 import com.endtoend.historyOfMine.utils.securityutils.JWTUtils;
