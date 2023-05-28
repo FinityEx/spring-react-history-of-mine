@@ -1,6 +1,6 @@
 package com.endtoend.historyOfMine.repositories;
 
-import com.endtoend.historyOfMine.tables.User;
+import com.endtoend.historyOfMine.models.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

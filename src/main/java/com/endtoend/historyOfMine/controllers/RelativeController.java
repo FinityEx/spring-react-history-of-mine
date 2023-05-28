@@ -2,13 +2,13 @@ package com.endtoend.historyOfMine.controllers;
 
 import com.endtoend.historyOfMine.forms.RelativeForm;
 import com.endtoend.historyOfMine.service.RelativeService;
-import com.endtoend.historyOfMine.tables.Relative;
+import com.endtoend.historyOfMine.models.Relative;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/relative")
+@RequestMapping("/user/relative")
 public class RelativeController {
     private final RelativeService relativeService;
 
