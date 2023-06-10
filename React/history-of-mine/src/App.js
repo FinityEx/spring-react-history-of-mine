@@ -1,31 +1,34 @@
 import './App.css';
 import './normalize.css'
-import {Component} from "react";
 
-import background from "./img/background.jpg"
+import React from 'react';
+import SignIn from "./pages/SignIn"
+import { Link } from 'react-router-dom';
 
-class App extends Component{
-  constructor() {
-    super();
-
-    this.state = {}
-  }
-
-  render() {
-      const backgroundStyle={
-      backgroundImage: `url(${background})`,
-          backgroundRepeat:"no-repeat",
-          backgroundSize:"cover",
-          height:"100vh",
-          width:"100vw",
-          backgroundPosition:"center"
-      }
+const App = () => {
+    const useRef = 0
+    const useContext = 0;
     return (
-        <div className="App" style={backgroundStyle}>
-
-        </div>
+            <SignIn />
+        // <>
+        //     <h1>React Router</h1>
+        //
+        //     <Navigation />
+        //
+        //     <Routes>
+        //         <Route path="signin" element={<SignIn />} />
+        //     </Routes>
+        // </>
     );
-    }
-}
+};
 
+// const Navigation = () => {
+//     return (
+//         <nav
+//         >
+//             <Link to="/signin">Home</Link>
+//             {/*<Link to="/users">Users</Link>*/}
+//         </nav>
+//     );
+// };
 export default App;
