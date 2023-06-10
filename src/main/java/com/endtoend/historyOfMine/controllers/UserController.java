@@ -21,6 +21,7 @@ public class UserController {
 
     @PostMapping
     public ResponseEntity<AuthenticationResponse> createUser(@RequestBody UserForm userForm){
+        System.out.println(userForm.getUsername() + userForm.getEmail() + userForm.getPassword());
         return ResponseEntity.ok(userService.createUser(userForm));
     }
 

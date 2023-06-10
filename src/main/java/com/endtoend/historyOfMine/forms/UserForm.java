@@ -7,10 +7,10 @@ public class UserForm {
     private String password;
     private String email;
 
-    public UserForm(String username, String password, @Nullable String email) {
+    public UserForm(String username, String email, String password) {
         this.username = username;
-        this.password = password;
         this.email = email;
+        this.password = password;
     }
 
     public String getUsername() {

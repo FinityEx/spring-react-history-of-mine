@@ -12,12 +12,14 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { useNavigate } from "react-router-dom";
+
 function Copyright(props) {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
       {'Copyright © '}
       <Link color="inherit" href="https://mui.com/">
-        Your Website
+        History Of Mine
       </Link>{' '}
       {new Date().getFullYear()}
       {'.'}
@@ -29,16 +31,31 @@ function Copyright(props) {
 
 const defaultTheme = createTheme();
 
-export default function SignIn() {
+export default function SignIn(input, init) {
+  const navigate = useNavigate();
 
   const handleSubmit = (event) => {
-    event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
-  };
+    event.preventDefault();
+
+    var object = {};
+    data.forEach((value, key) => object[key] = value);
+    var json = JSON.stringify(object);
+    console.log(json);
+    fetch('/login', {
+      method: 'POST',
+      body: json,
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }).then((response) => { if(response.ok) {
+      alert("You're logged in");
+      navigate("/")
+    } else {
+      alert("You're not logged in")
+    }})
+
+  }
 
   return (
     <ThemeProvider theme={defaultTheme}>
@@ -58,15 +75,15 @@ export default function SignIn() {
           <Typography component="h1" variant="h5">
             Sign in
           </Typography>
-          <Box component="form" noValidate sx={{ mt: 1 }}>
+          <Box component="form" noValidate sx={{ mt: 1 }} onSubmit={handleSubmit}>
             <TextField
               margin="normal"
               required
               fullWidth
-              id="email"
+              id="username"
               label="Email Address"
-              name="email"
-              autoComplete="email"
+              name="username"
+              autoComplete="username"
               autoFocus
             />
             <TextField
@@ -98,7 +115,7 @@ export default function SignIn() {
                 </Link>
               </Grid>
               <Grid item>
-                <Link href="#" variant="body2">
+                <Link href="/sign-up" variant="body2">
                   {"Don't have an account? Sign Up"}
                 </Link>
               </Grid>

@@ -27,6 +27,7 @@ public class LoginController {
     @PostMapping
     public ResponseEntity<AuthenticationResponse> login(@RequestBody UserForm.AuthenticationForm
                                                                     authenticationForm) throws AuthenticationException {
+        System.out.println(authenticationForm.username() + authenticationForm.password());
         return ResponseEntity.ok(authService.authenticate(authenticationForm));
     }
 }

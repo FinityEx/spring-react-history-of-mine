@@ -11,17 +11,8 @@ import java.util.*;
 @Entity
  public class User implements UserDetails{
     @Id
-    @GeneratedValue(generator = "sequence-generator")
-    @GenericGenerator(
-            name = "sequence-generator",
-            strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator",
-            parameters = {
-                    @org.hibernate.annotations.Parameter(name = "sequence_name", value = "user_sequence"),
-                    @org.hibernate.annotations.Parameter(name = "initial_value", value = "2"),
-                    @org.hibernate.annotations.Parameter(name = "increment_size", value = "1")
-            }
-    )
-    private UUID id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer id;
     @Column(nullable = false, unique = true)
     private String username;
     @Column
@@ -43,7 +34,7 @@ import java.util.*;
     @OneToMany(mappedBy = "user")
     private List<Relative> relatives;
 
-    private User(){}
+    protected User(){}
 
     public User(String username, String password, String email) {
         this.username = username;
@@ -53,7 +44,9 @@ import java.util.*;
         this.authority = Authority.USER;
     }
 
-    public UUID getId() {
+
+
+    public Integer getId() {
         return id;
     }
 
