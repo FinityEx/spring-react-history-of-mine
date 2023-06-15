@@ -4,7 +4,6 @@ import com.endtoend.historyOfMine.forms.UserForm;
 import com.endtoend.historyOfMine.models.User;
 import com.endtoend.historyOfMine.utils.securityutils.BCryptEncodingUtils;
 import org.springframework.lang.NonNull;
-import org.springframework.security.config.annotation.authentication.configurers.provisioning.UserDetailsManagerConfigurer;
 import org.springframework.stereotype.Service;
 
 @Service

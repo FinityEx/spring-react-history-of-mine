@@ -1,21 +1,17 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import App from './App';
 import reportWebVitals from './reportWebVitals';
-import {
-    createBrowserRouter,
-    RouterProvider,
-} from "react-router-dom";
+import {createBrowserRouter, RouterProvider,} from "react-router-dom";
 import SignIn from "./pages/SignIn"
-import Blog from "./pages/main/Blog"
+import Home from "./pages/home/Home"
 import SignUp from "./pages/SignUp";
-
+import SeeRelatives from "./pages/SeeRelatives";
 
 const router = createBrowserRouter([
     {
-        path: "/blog",
-        element: <Blog />,
+        path: "/home",
+        element: <Home />,
     },
     {
         path: "/sign-in",
@@ -24,6 +20,10 @@ const router = createBrowserRouter([
     {
         path: "/sign-up",
         element: <SignUp />,
+    },
+    {
+        path: "/relatives",
+        element: <SeeRelatives />
     }
 ]);
 

@@ -3,16 +3,15 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
 import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { useNavigate } from "react-router-dom";
+import {createTheme, ThemeProvider} from '@mui/material/styles';
+import {useNavigate} from "react-router-dom";
+import axios from "axios";
 
 function Copyright(props) {
   return (
@@ -38,25 +37,31 @@ export default function SignUp() {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     var object = {};
-    data.forEach((value, key) => object[key] = value);
-    var json = JSON.stringify(object);
-    console.log(json);
-    fetch('/user', {
-      method: 'POST',
-      body: json,
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    }).then((response) => { if(response.ok) {
-      console.log(response);
-      alert("Account created");
-      navigate("/blog")
-    }
-    else{
-      console.log(response);
-      alert("Account not created");
-      navigate("/sign-up");
-    }})
+    // data.forEach((value, key) => object[key] = value);
+    // var json = JSON.stringify(object);
+    // console.log(json);
+    axios({
+      method: "post",
+      url: "/user",
+      data: data,
+      headers: {"Content-Type": "application/json"},
+    }).then((response) => {console.log(response.status, response.data.token)});
+    // fetch('/user', {
+    //   method: 'POST',
+    //   body: json,
+    //   headers: {
+    //     'Content-Type': 'application/json'
+    //   }
+    // }).then((response) => { if(response.ok) {
+    //   console.log(response);
+    //   alert("Account created");
+    //   navigate("/blog")
+    // }
+    // else{
+    //   console.log(response);
+    //   alert("Account not created");
+    //   navigate("/sign-up");
+    // }})
 
   };
 

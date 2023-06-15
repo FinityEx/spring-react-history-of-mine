@@ -2,14 +2,13 @@ package com.endtoend.historyOfMine.models;
 
 
 import jakarta.persistence.*;
-import org.hibernate.annotations.GenericGenerator;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.*;
 
 @Entity
- public class User implements UserDetails{
+ public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
@@ -25,8 +24,7 @@ import java.util.*;
     @Enumerated(EnumType.STRING)
     private Authority authority;
     private String name;
-    @Enumerated(EnumType.STRING)
-    private Relative.Sex sex;
+    private String sex;
     private String lastName;
     private Date birth;
     @Column(name = "place_of_birth")
@@ -34,16 +32,19 @@ import java.util.*;
     @OneToMany(mappedBy = "user")
     private List<Relative> relatives;
 
-    protected User(){}
-
     public User(String username, String password, String email) {
         this.username = username;
         this.password = password;
         this.email = email;
         this.accountNonLocked = true;
+        this.enabled = true;
         this.authority = Authority.USER;
+        this.relatives = new ArrayList<>();
     }
 
+    public User() {
+
+    }
 
 
     public Integer getId() {
@@ -119,12 +120,12 @@ import java.util.*;
         this.name = name;
     }
 
-    public Relative.Sex getSex() {
+    public String getSex() {
         return sex;
     }
 
-    public void setSex(Relative.Sex sex) {
-        this.sex = sex;
+    public void setSex(Sex sex) {
+        this.sex = sex.toString();
     }
 
     public String getLastName() {
@@ -151,5 +152,9 @@ import java.util.*;
         this.placeOfBirth = placeOfBirth;
     }
 
+    public enum Sex{
+        MALE,
+        FEMALE
+    }
 
 }

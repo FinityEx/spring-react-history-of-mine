@@ -1,9 +1,9 @@
 package com.endtoend.historyOfMine.service;
 
 import com.endtoend.historyOfMine.forms.RelativeForm;
+import com.endtoend.historyOfMine.models.Relative;
 import com.endtoend.historyOfMine.repositories.RelativesRepository;
 import com.endtoend.historyOfMine.repositories.UsersRepository;
-import com.endtoend.historyOfMine.models.Relative;
 import com.endtoend.historyOfMine.utils.RelativeUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.lang.NonNull;
@@ -28,11 +28,12 @@ public class RelativeService {
     public HttpStatus addRelative(@NonNull final RelativeForm relativeForm) {
         if(relativesRepository.alreadyExists(relativeForm.getName(),
                 relativeForm.getLastName(), relativeForm.getBirth()).isEmpty()) {
+
             var relative = relativeUtils.create(relativeForm);
             var loggedUser = userService.getLoggedUser();
             loggedUser.addRelative(relative);
             userRepository.save(loggedUser);
-            relativesRepository.saveAndFlush(relativeUtils.create(relativeForm));
+            relativesRepository.saveAndFlush(relative);
             return HttpStatus.OK;
         }
         return HttpStatus.CONFLICT;
@@ -40,9 +41,8 @@ public class RelativeService {
 
 
     public List<Relative> getAllUserRelatives() {
-        return userService.getLoggedUser().getRelatives();
+        return relativesRepository.getRelativesByUserId(userService.getLoggedUser().getId());
     }
-
 
 
 }

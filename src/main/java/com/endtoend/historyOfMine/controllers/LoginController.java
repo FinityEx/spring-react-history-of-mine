@@ -2,10 +2,15 @@ package com.endtoend.historyOfMine.controllers;
 
 import com.endtoend.historyOfMine.forms.UserForm;
 import com.endtoend.historyOfMine.websecurity.AuthService;
-import com.endtoend.historyOfMine.websecurity.AuthenticationResponse;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.naming.AuthenticationException;
 
@@ -18,16 +23,19 @@ public class LoginController {
         this.authService = authService;
     }
 
-    @GetMapping
-    public String loginTemplate() {
-        return "login";
-    }
-
-
     @PostMapping
-    public ResponseEntity<AuthenticationResponse> login(@RequestBody UserForm.AuthenticationForm
-                                                                    authenticationForm) throws AuthenticationException {
-        System.out.println(authenticationForm.username() + authenticationForm.password());
-        return ResponseEntity.ok(authService.authenticate(authenticationForm));
+    @ResponseBody
+    public ResponseEntity<?> login(@RequestBody UserForm.AuthenticationForm authenticationForm,
+                                    HttpServletResponse response) throws AuthenticationException {
+
+        var cookie = new Cookie("jwtToken", authService.authenticate(authenticationForm).getAccessToken());
+        cookie.setMaxAge(-1);
+        cookie.setPath("/");
+        cookie.setSecure(false);
+        cookie.setHttpOnly(true);
+        response.addCookie(cookie);
+
+        return new ResponseEntity<>(HttpStatus.OK);
+
     }
 }

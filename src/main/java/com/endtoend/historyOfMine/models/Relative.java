@@ -1,12 +1,12 @@
 package com.endtoend.historyOfMine.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import org.hibernate.annotations.GenericGenerator;
 
 import java.util.Date;
-import java.util.UUID;
 
-@Entity
+@Entity(name = "Relatives")
 public class Relative  {
     @Id
     @GeneratedValue(generator = "sequence-generator")
@@ -20,20 +20,20 @@ public class Relative  {
             }
     )
     private Long id;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnore
     private User user;
-    protected String name;
-    @Enumerated(EnumType.STRING)
-    protected Sex sex;
-    protected String lastName;
-    protected Date birth;
-    protected Date death;
+    private String name;
+    private String sex;
+    private String lastName;
+    @Column(name = "date_of_birth")
+    private Date birth;
+    private Date death;
     //TODO maps api
     @Column(name = "place_of_birth")
-    protected String placeOfBirth;
-    private UUID relatedTo;
-    @Enumerated(value = EnumType.STRING)
-    private Kinship as;
+    private String placeOfBirth;
+    private Integer relatedTo;
+    private String as;
 
     public Relative() {
     }
@@ -49,7 +49,6 @@ public class Relative  {
     public Long getId() {
         return id;
     }
-
 
     public String getName() {
         return name;
@@ -83,12 +82,12 @@ public class Relative  {
         this.placeOfBirth = placeOfBirth;
     }
 
-    public Sex getSex() {
+    public String getSex() {
         return sex;
     }
 
     public void setSex(Sex sex) {
-        this.sex = sex;
+        this.sex = sex.toString();
     }
 
     public Date getDeath() {
@@ -99,20 +98,20 @@ public class Relative  {
         this.death = death;
     }
 
-    public UUID getRelatedTo() {
+    public Integer getRelatedTo() {
         return relatedTo;
     }
 
-    public void setRelatedTo(UUID relatedTo) {
+    public void setRelatedTo(Integer relatedTo) {
         this.relatedTo = relatedTo;
     }
 
-    public Kinship getAs() {
-        return as;
+    public String getAs() {
+        return as.toString();
     }
 
     public void setAs(Kinship as) {
-        this.as = as;
+        this.as = as.toString();
     }
 
     public enum Kinship{

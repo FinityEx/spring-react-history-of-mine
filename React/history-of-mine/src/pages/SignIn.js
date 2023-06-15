@@ -11,8 +11,9 @@ import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { useNavigate } from "react-router-dom";
+import {createTheme, ThemeProvider} from '@mui/material/styles';
+import {useNavigate} from "react-router-dom";
+import axios from "axios";
 
 function Copyright(props) {
   return (
@@ -36,26 +37,24 @@ export default function SignIn(input, init) {
 
   const handleSubmit = (event) => {
     const data = new FormData(event.currentTarget);
+
     event.preventDefault();
+    axios({
+      method: "post",
+      url: "/login",
+      data: data,
+      headers: {"Content-Type": "application/json"},
+    }).then((response) => {
+      console.log(response);
+        if(response.status === 200){
+          alert("You're logged in");
+          navigate("/home");
+        } else {
+          alert("You're not logged in");
+          navigate("/sign-in");
+        }
+    })}
 
-    var object = {};
-    data.forEach((value, key) => object[key] = value);
-    var json = JSON.stringify(object);
-    console.log(json);
-    fetch('/login', {
-      method: 'POST',
-      body: json,
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    }).then((response) => { if(response.ok) {
-      alert("You're logged in");
-      navigate("/")
-    } else {
-      alert("You're not logged in")
-    }})
-
-  }
 
   return (
     <ThemeProvider theme={defaultTheme}>
@@ -81,7 +80,7 @@ export default function SignIn(input, init) {
               required
               fullWidth
               id="username"
-              label="Email Address"
+              label="Username"
               name="username"
               autoComplete="username"
               autoFocus

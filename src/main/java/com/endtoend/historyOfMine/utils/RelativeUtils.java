@@ -7,8 +7,6 @@ import org.springframework.security.authentication.AuthenticationServiceExceptio
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
-import java.util.UUID;
-
 @Service
 public class RelativeUtils implements Utils<Relative, RelativeForm> {
 

@@ -5,8 +5,6 @@ import com.endtoend.historyOfMine.models.User;
 
 import java.util.Date;
 import java.util.Objects;
-import java.util.UUID;
-
 public class RelativeForm {
     private User user;
     private String name;
@@ -15,13 +13,15 @@ public class RelativeForm {
     private Date birth;
     private Date death;
     private String placeOfBirth;
-    private UUID relatedTo;
+    private Integer relatedTo;
     private Relative.Kinship as;
 
-    public RelativeForm(UUID relatedTo, Relative.Kinship as){
-        this.relatedTo = Objects.requireNonNull(relatedTo, "Person must be related to someone!");
+
+    public RelativeForm(Relative.Kinship as){
         this.as = Objects.requireNonNull(as, "Type of kinship is required!");
     }
+
+    public RelativeForm(){}
 
     public User getUser() {
         return user;
@@ -59,11 +59,11 @@ public class RelativeForm {
         this.placeOfBirth = placeOfBirth;
     }
 
-    public UUID getRelatedTo() {
+    public Integer getRelatedTo() {
         return relatedTo;
     }
 
-    public void setRelatedTo(UUID relatedTo) {
+    public void setRelatedTo(Integer relatedTo) {
         this.relatedTo = relatedTo;
     }
 
@@ -74,8 +74,6 @@ public class RelativeForm {
     public void setAs(Relative.Kinship as) {
         this.as = as;
     }
-
-    public RelativeForm(){}
 
     public String getName() {
         return name;

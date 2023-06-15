@@ -1,9 +1,9 @@
 package com.endtoend.historyOfMine.service;
 
 import com.endtoend.historyOfMine.forms.UserForm;
+import com.endtoend.historyOfMine.models.User;
 import com.endtoend.historyOfMine.repositories.RelativesRepository;
 import com.endtoend.historyOfMine.repositories.UsersRepository;
-import com.endtoend.historyOfMine.models.User;
 import com.endtoend.historyOfMine.utils.RelativeUtils;
 import com.endtoend.historyOfMine.utils.UserUtils;
 import com.endtoend.historyOfMine.utils.securityutils.JWTUtils;
@@ -18,16 +18,14 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class UserService implements UserDetailsService {
-    private final UsersRepository usersRepository;
+    private static UsersRepository usersRepository;
     private final UserUtils userUtils;
     private final RelativesRepository relativesRepository;
-    private final RelativeUtils relativeUtils;
 
     public UserService(UsersRepository usersRepository, UserUtils userUtils, RelativesRepository relativesRepository, RelativeUtils relativeUtils) {
         this.usersRepository = usersRepository;
         this.userUtils = userUtils;
         this.relativesRepository = relativesRepository;
-        this.relativeUtils = relativeUtils;
     }
 
     public AuthenticationResponse createUser(final UserForm userForm){

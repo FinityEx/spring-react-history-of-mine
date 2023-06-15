@@ -9,6 +9,7 @@ public class AuthenticationResponse {
     @JsonProperty("refresh_token")
     private String refreshToken;
 
+
     public AuthenticationResponse(String accessToken){
         this(accessToken, null);
     }
