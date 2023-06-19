@@ -3,10 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "styled-components": "^6.0.0-rc.3",
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
     "@fontsource/roboto": "^5.0.3",
     "@mui/icons-material": "^5.11.16",
+    "@mui/lab": "^5.0.0-alpha.134",
     "@mui/material": "^5.13.4",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
@@ -35,7 +37,6 @@
     "test": "react-app-rewired test",
     "eject": "react-scripts eject"
   },
-
   "proxy": "http://localhost:8080",
   "eslintConfig": {
     "extends": [
@@ -43,18 +44,11 @@
       "react-app/jest"
     ]
   },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not op_mini all"
+  ],
   "devDependencies": {
     "assert": "^2.0.0",
     "browserify-zlib": "^0.2.0",
