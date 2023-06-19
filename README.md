@@ -1,19 +1,21 @@
 # [WIP] history-of-mine
 
-Backend REST API that serves creating and expanding known family tree. 
+Full fledged web app based on REST API backend created with Spring/Spring Boot and frontend side created with React, which serves creating and expanding known family tree. 
+
 
 # Features
 
--Create family tree by registering or logging via Google and adding details about family members
+-Create family tree with details and personal notes about each member
 
--Get an overview of family members origins with help of Google Maps and automatic pins marking villages and cities
+-Get an overview of family members origins with help of Google Maps and pins marking villages and cities
 
--Find matches between own ancestors and anstestors of other users (provided they allow it)
+-Find matches between own ancestors and anstestors of other users
 
--Browse for help finding church archivists and their services of finding ancestors in parish records 
+-Find information about your local parish records and services 
 
 
 # Tech stack
+## Backend
 
 -Spring boot
 
@@ -30,3 +32,9 @@ Backend REST API that serves creating and expanding known family tree.
 -Postgres
 
 -Swagger
+
+## Frontend
+
+-React
+
+-HTML, CSS,  JavaScript
