@@ -33,7 +33,7 @@ public class UserService implements UserDetailsService {
             var user = userUtils.create(userForm);
             usersRepository.saveAndFlush(user);
             user = getUser(userForm.getUsername());
-            return new AuthenticationResponse(JWTUtils.generateToken(user));
+            return new AuthenticationResponse(JWTUtils.generateToken(user), user.getId());
         }
         throw new EntityExistsException("Username already exists");
      }

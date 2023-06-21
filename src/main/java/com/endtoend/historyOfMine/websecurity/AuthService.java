@@ -30,7 +30,7 @@ public class AuthService {
             );
             var user = usersRepository.findByUsername(userForm.username());
             if(user.isPresent()){
-                return new AuthenticationResponse(JWTUtils.generateToken(user.get()));
+                return new AuthenticationResponse(JWTUtils.generateToken(user.get()), user.get().getId());
             }
             else{
                 throw new AuthenticationException("Username not found!");

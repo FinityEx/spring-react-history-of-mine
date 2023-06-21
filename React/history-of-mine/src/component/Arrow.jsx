@@ -1,6 +1,6 @@
 import React, {useEffect, useRef} from 'react';
 
-const Arrow = ({ x1, y1, x2, y2 }) => {
+const Arrow = ({ x1, y1, x2, y2, arrowhead }) => {
   const canvasRef = useRef(null);
 
   useEffect(() => {
@@ -17,12 +17,14 @@ const Arrow = ({ x1, y1, x2, y2 }) => {
     ctx.moveTo(x1, y1);
     ctx.lineTo(x2, y2);
     ctx.stroke();
-
+    if(arrowhead){
+      let dx = x2 - x1;
+      let dy = y2 - y1;
+      let angle = Math.atan2(dy, dx);
+      drawArrowhead(ctx, x2, y2, angle - Math.PI / 2);
+    }
     // draw the arrowhead at (x2, y2)
-    let dx = x2 - x1;
-    let dy = y2 - y1;
-    let angle = Math.atan2(dy, dx);
-    drawArrowhead(ctx, x2, y2, angle - Math.PI / 2);
+
   }, [x1, y1, x2, y2]);
 
   const drawArrowhead = (ctx, x, y, angle) => {

@@ -30,6 +30,7 @@ const Tree = ({ children, containerRef }) => {
       );
 
       drawArrow.forEach((ref3) => {
+        const drawArrowhead = ref.current.current.getAttribute('as') !== "SIBLING";
         // get bounding boxes of the two elements
         const box1 = ref.current.current.getBoundingClientRect();
         const box2 = ref3.current.current.getBoundingClientRect();
@@ -57,7 +58,7 @@ const Tree = ({ children, containerRef }) => {
 
         setArrows((prevState) => [
           ...prevState,
-          <Arrow key={prevState.length + 1} x1={startX} y1={startY} x2={endX} y2={endY} />
+          <Arrow key={prevState.length + 1} x1={startX} y1={startY} x2={endX} y2={endY} arrowhead={drawArrowhead}/>
         ]);
       });
     });

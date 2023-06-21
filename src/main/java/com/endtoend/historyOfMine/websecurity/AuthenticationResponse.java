@@ -9,15 +9,28 @@ public class AuthenticationResponse {
     @JsonProperty("refresh_token")
     private String refreshToken;
 
+    @JsonProperty("userId")
+    private Integer userId;
 
-    public AuthenticationResponse(String accessToken){
-        this(accessToken, null);
+
+    public AuthenticationResponse(String accessToken, Integer userId){
+        this(accessToken, null, userId);
     }
 
-    public AuthenticationResponse(String accessToken, @Nullable String refreshToken) {
+    public AuthenticationResponse(String accessToken, @Nullable String refreshToken, Integer id) {
         this.accessToken = accessToken;
         this.refreshToken = refreshToken;
+        this.userId = id;
     }
+
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
+    }
+
 
     public String getAccessToken() {
         return accessToken;

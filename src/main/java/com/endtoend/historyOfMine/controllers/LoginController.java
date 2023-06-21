@@ -28,13 +28,14 @@ public class LoginController {
     public ResponseEntity<?> login(@RequestBody UserForm.AuthenticationForm authenticationForm,
                                     HttpServletResponse response) throws AuthenticationException {
 
-        var cookie = new Cookie("jwtToken", authService.authenticate(authenticationForm).getAccessToken());
+        var authResponse = authService.authenticate(authenticationForm);
+        var cookie = new Cookie("jwtToken", authResponse.getAccessToken());
         cookie.setMaxAge(-1);
         cookie.setPath("/");
         cookie.setSecure(false);
         cookie.setHttpOnly(true);
         response.addCookie(cookie);
-
+        response.addIntHeader("userId", authResponse.getUserId());
         return new ResponseEntity<>(HttpStatus.OK);
 
     }

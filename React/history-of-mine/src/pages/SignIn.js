@@ -14,6 +14,7 @@ import {createTheme, ThemeProvider} from '@mui/material/styles';
 import {useNavigate} from "react-router-dom";
 import axios from "axios";
 import Avatar from "@mui/material/Avatar";
+import User from "../User";
 
 function Copyright(props) {
   return (
@@ -34,7 +35,7 @@ const defaultTheme = createTheme();
 
 export default function SignIn(input, init) {
   const navigate = useNavigate();
-
+  let userId;
   const handleSubmit = (event) => {
     const data = new FormData(event.currentTarget);
 
@@ -45,9 +46,12 @@ export default function SignIn(input, init) {
       data: data,
       headers: {"Content-Type": "application/json"},
     }).then((response) => {
-      console.log(response);
         if(response.status === 200){
           alert("You're logged in");
+          console.log(response);
+          User(response.headers.userid)
+          userId = response.headers.userid;
+          console.log(userId)
           navigate("/home");
         } else {
           alert("You're not logged in");
