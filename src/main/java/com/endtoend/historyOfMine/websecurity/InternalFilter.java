@@ -1,7 +1,7 @@
 package com.endtoend.historyOfMine.websecurity;
 
 import com.endtoend.historyOfMine.service.UserService;
-import com.endtoend.historyOfMine.utils.securityutils.JWTUtils;
+import com.endtoend.historyOfMine.websecurity.securityutils.JWTUtils;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.Cookie;
