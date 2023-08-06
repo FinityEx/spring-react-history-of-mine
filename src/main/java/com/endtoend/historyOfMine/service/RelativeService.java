@@ -1,6 +1,6 @@
 package com.endtoend.historyOfMine.service;
 
-import com.endtoend.historyOfMine.forms.RelativeForm;
+import com.endtoend.historyOfMine.forms.RelativeDTO;
 import com.endtoend.historyOfMine.models.Relative;
 import com.endtoend.historyOfMine.repositories.RelativesRepository;
 import com.endtoend.historyOfMine.repositories.UsersRepository;
@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 
+import java.text.ParseException;
 import java.util.List;
 
 @Service
@@ -25,12 +26,13 @@ public class RelativeService {
         this.userService = userService;
     }
 
-    public HttpStatus addRelative(@NonNull final RelativeForm relativeForm) {
-        if(relativesRepository.alreadyExists(relativeForm.getName(),
-                relativeForm.getLastName(), relativeForm.getBirth()).isEmpty()) {
+    public HttpStatus addRelativeOfUser(@NonNull final RelativeDTO relativeDTO) throws ParseException {
+        if (relativesRepository.alreadyExists(relativeDTO.getName(),
+                relativeDTO.getLastName(), relativeDTO.getBirth()).isEmpty()) {
 
-            var relative = relativeUtils.create(relativeForm);
+            var relative = relativeUtils.create(relativeDTO);
             var loggedUser = userService.getLoggedUser();
+            relative.setUser(loggedUser);
             loggedUser.addRelative(relative);
             userRepository.save(loggedUser);
             relativesRepository.saveAndFlush(relative);
@@ -38,11 +40,54 @@ public class RelativeService {
         }
         return HttpStatus.CONFLICT;
     }
+    //TODO: implement this method
+    public HttpStatus addRelativeOfRelative(@NonNull final RelativeDTO relativeDTO) throws ParseException {
+        if (relativesRepository.alreadyExists(relativeDTO.getName(),
+                relativeDTO.getLastName(), relativeDTO.getBirth()).isEmpty()) {
+
+            var relativeOpt = relativesRepository.findById(relativeDTO.getRelativeId());
+            var newRelative = relativeUtils.create(relativeDTO);
+
+//            if (relativeOpt.isPresent()) {
+//                var relative = relativeOpt.get();
+//                var relativeList = relativesRepository.getRelatives(relative.getId());
+//                var newRelativeList = new ArrayList<Relative>();
+//
+//                var kinship = relativeDTO.getAs();
+//
+//                switch (kinship) {
+//                    case "SIBLING": {
+//                        newRelativeList.addAll(relativesRepository.getParents(relative.getId()));
+//                        newRelativeList.addAll(relativesRepository.getSiblings(relative.getId()));
+//
+//                        if (!relativeList.isEmpty()) {
+//                            relativeList.forEach((r) -> r.addRelative(newRelative));
+//                        }
+//                        relativeList.add(newRelative);
+//                        relative.setRelatives(relativeList);
+//
+//                        newRelativeList.add(relative);
+//                        newRelative.setRelatives(newRelativeList);
+//
+//
+//                        relativesRepository.saveAndFlush(relative);
+//                        return HttpStatus.OK;
+//                    }
+//
+//                }
+            return HttpStatus.CONFLICT;
+        }
 
 
-    public List<Relative> getAllUserRelatives() {
-        return relativesRepository.getRelativesByUserId(userService.getLoggedUser().getId());
+        return null;
     }
 
-
+    public List<Relative> getAllUserRelatives() {
+        //TODO: replace temp implementation of this method
+        var tempRel = new Relative();
+        tempRel.setName("relativeName");
+        tempRel.setLastName("relativeLastName");
+        return List.of(tempRel);
+        //        return relativesRepository.getRelativesByUserId(userService.getLoggedUser().getId());
+    }
 }

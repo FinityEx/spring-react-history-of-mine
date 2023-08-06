@@ -1,7 +1,7 @@
 package com.endtoend.historyOfMine.websecurity;
 
 import com.endtoend.historyOfMine.service.UserService;
-import com.endtoend.historyOfMine.utils.securityutils.BCryptEncodingUtils;
+import com.endtoend.historyOfMine.websecurity.securityutils.BCryptEncodingUtils;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;

@@ -12530,7 +12530,7 @@ See https://mui.com/r/migration-v4/#mui-material-styles for more details.` );
     function getWindowScrollBarX(element) {
         // If <html> has a CSS width greater than the viewport, then this will be
         // incorrect for RTL.
-        // Popper 1 is broken in this case and never had a bug report so let's assume
+        // PopperComponent 1 is broken in this case and never had a bug report so let's assume
         // it's not an issue. I don't think anyone ever specifies width on <html>
         // anyway.
         // Browsers where the left scrollbar doesn't cause an issue report `0` for
@@ -13481,7 +13481,7 @@ See https://mui.com/r/migration-v4/#mui-material-styles for more details.` );
                 // is useful for low frequency updates where sync behavior simplifies the
                 // logic.
                 // For high frequency updates (e.g. `resize` and `scroll` events), always
-                // prefer the async Popper#update method
+                // prefer the async PopperComponent#update method
                 forceUpdate: function forceUpdate() {
                     if (isDestroyed) {
                         return;
@@ -13850,15 +13850,15 @@ See https://mui.com/r/migration-v4/#mui-material-styles for more details.` );
     });
 
     /**
-     * Poppers rely on the 3rd party library [Popper.js](https://popper.js.org/docs/v2/) for positioning.
+     * Poppers rely on the 3rd party library [PopperComponent.js](https://popper.js.org/docs/v2/) for positioning.
      *
      * Demos:
      *
-     * - [Popper](https://mui.com/base/react-popper/)
+     * - [PopperComponent](https://mui.com/base/react-popper/)
      *
      * API:
      *
-     * - [Popper API](https://mui.com/base/react-popper/components-api/#popper)
+     * - [PopperComponent API](https://mui.com/base/react-popper/components-api/#popper)
      */
     const Popper$2 = /*#__PURE__*/React__namespace.forwardRef(function Popper(props, forwardedRef) {
         const {
@@ -13923,9 +13923,9 @@ See https://mui.com/r/migration-v4/#mui-material-styles for more details.` );
                 slots: slots
             }, other, {
                 style: _extends({
-                    // Prevents scroll issue, waiting for Popper.js to add this style once initiated.
+                    // Prevents scroll issue, waiting for PopperComponent.js to add this style once initiated.
                     position: 'fixed',
-                    // Fix Popper.js display issue
+                    // Fix PopperComponent.js display issue
                     top: 0,
                     left: 0,
                     display
@@ -13944,7 +13944,7 @@ See https://mui.com/r/migration-v4/#mui-material-styles for more details.` );
          * An HTML element, [virtualElement](https://popper.js.org/docs/v2/virtual-elements/),
          * or a function that returns either.
          * It's used to set the position of the popper.
-         * The return value will passed as the reference object of the Popper instance.
+         * The return value will passed as the reference object of the PopperComponent instance.
          */
         anchorEl: chainPropTypes(PropTypes.oneOfType([HTMLElementType, PropTypes.object, PropTypes.func]), props => {
             if (props.open) {
@@ -13961,7 +13961,7 @@ See https://mui.com/r/migration-v4/#mui-material-styles for more details.` );
             return null;
         }),
         /**
-         * Popper render function or node.
+         * PopperComponent render function or node.
          */
         children: PropTypes /* @typescript-to-proptypes-ignore */.oneOfType([PropTypes.node, PropTypes.func]),
         /**
@@ -13985,15 +13985,15 @@ See https://mui.com/r/migration-v4/#mui-material-styles for more details.` );
         /**
          * Always keep the children in the DOM.
          * This prop can be useful in SEO situation or
-         * when you want to maximize the responsiveness of the Popper.
+         * when you want to maximize the responsiveness of the PopperComponent.
          * @default false
          */
         keepMounted: PropTypes.bool,
         /**
-         * Popper.js is based on a "plugin-like" architecture,
+         * PopperComponent.js is based on a "plugin-like" architecture,
          * most of its features are fully encapsulated "modifiers".
          *
-         * A modifier is a function that is called each time Popper.js needs to
+         * A modifier is a function that is called each time PopperComponent.js needs to
          * compute the position of the popper.
          * For this reason, modifiers should be very performant to avoid bottlenecks.
          * To learn how to create a modifier, [read the modifiers documentation](https://popper.js.org/docs/v2/modifiers/).
@@ -14014,12 +14014,12 @@ See https://mui.com/r/migration-v4/#mui-material-styles for more details.` );
          */
         open: PropTypes.bool.isRequired,
         /**
-         * Popper placement.
+         * PopperComponent placement.
          * @default 'bottom'
          */
         placement: PropTypes.oneOf(['auto-end', 'auto-start', 'auto', 'bottom-end', 'bottom-start', 'bottom', 'left-end', 'left-start', 'left', 'right-end', 'right-start', 'right', 'top-end', 'top-start', 'top']),
         /**
-         * Options provided to the [`Popper.js`](https://popper.js.org/docs/v2/constructors/#options) instance.
+         * Options provided to the [`PopperComponent.js`](https://popper.js.org/docs/v2/constructors/#options) instance.
          * @default {}
          */
         popperOptions: PropTypes.shape({
@@ -14033,14 +14033,14 @@ See https://mui.com/r/migration-v4/#mui-material-styles for more details.` );
          */
         popperRef: refType$1,
         /**
-         * The props used for each slot inside the Popper.
+         * The props used for each slot inside the PopperComponent.
          * @default {}
          */
         slotProps: PropTypes.shape({
             root: PropTypes.oneOfType([PropTypes.func, PropTypes.object])
         }),
         /**
-         * The components used for each slot inside the Popper.
+         * The components used for each slot inside the PopperComponent.
          * Either a string to use a HTML element or a component.
          * @default {}
          */
@@ -20824,11 +20824,11 @@ See https://mui.com/r/migration-v4/#mui-material-styles for more details.` );
      *
      * - [Autocomplete](https://mui.com/material-ui/react-autocomplete/)
      * - [Menu](https://mui.com/material-ui/react-menu/)
-     * - [Popper](https://mui.com/material-ui/react-popper/)
+     * - [PopperComponent](https://mui.com/material-ui/react-popper/)
      *
      * API:
      *
-     * - [Popper API](https://mui.com/material-ui/api/popper/)
+     * - [PopperComponent API](https://mui.com/material-ui/api/popper/)
      */
     const Popper = /*#__PURE__*/React__namespace.forwardRef(function Popper(inProps, ref) {
         var _slots$root;
@@ -20888,11 +20888,11 @@ See https://mui.com/r/migration-v4/#mui-material-styles for more details.` );
          * An HTML element, [virtualElement](https://popper.js.org/docs/v2/virtual-elements/),
          * or a function that returns either.
          * It's used to set the position of the popper.
-         * The return value will passed as the reference object of the Popper instance.
+         * The return value will passed as the reference object of the PopperComponent instance.
          */
         anchorEl: PropTypes /* @typescript-to-proptypes-ignore */.oneOfType([HTMLElementType, PropTypes.object, PropTypes.func]),
         /**
-         * Popper render function or node.
+         * PopperComponent render function or node.
          */
         children: PropTypes /* @typescript-to-proptypes-ignore */.oneOfType([PropTypes.node, PropTypes.func]),
         /**
@@ -20901,7 +20901,7 @@ See https://mui.com/r/migration-v4/#mui-material-styles for more details.` );
          */
         component: PropTypes.elementType,
         /**
-         * The components used for each slot inside the Popper.
+         * The components used for each slot inside the PopperComponent.
          * Either a string to use a HTML element or a component.
          * @default {}
          */
@@ -20909,7 +20909,7 @@ See https://mui.com/r/migration-v4/#mui-material-styles for more details.` );
             Root: PropTypes.elementType
         }),
         /**
-         * The props used for each slot inside the Popper.
+         * The props used for each slot inside the PopperComponent.
          * @default {}
          */
         componentsProps: PropTypes.shape({
@@ -20931,15 +20931,15 @@ See https://mui.com/r/migration-v4/#mui-material-styles for more details.` );
         /**
          * Always keep the children in the DOM.
          * This prop can be useful in SEO situation or
-         * when you want to maximize the responsiveness of the Popper.
+         * when you want to maximize the responsiveness of the PopperComponent.
          * @default false
          */
         keepMounted: PropTypes.bool,
         /**
-         * Popper.js is based on a "plugin-like" architecture,
+         * PopperComponent.js is based on a "plugin-like" architecture,
          * most of its features are fully encapsulated "modifiers".
          *
-         * A modifier is a function that is called each time Popper.js needs to
+         * A modifier is a function that is called each time PopperComponent.js needs to
          * compute the position of the popper.
          * For this reason, modifiers should be very performant to avoid bottlenecks.
          * To learn how to create a modifier, [read the modifiers documentation](https://popper.js.org/docs/v2/modifiers/).
@@ -20960,12 +20960,12 @@ See https://mui.com/r/migration-v4/#mui-material-styles for more details.` );
          */
         open: PropTypes.bool.isRequired,
         /**
-         * Popper placement.
+         * PopperComponent placement.
          * @default 'bottom'
          */
         placement: PropTypes.oneOf(['auto-end', 'auto-start', 'auto', 'bottom-end', 'bottom-start', 'bottom', 'left-end', 'left-start', 'left', 'right-end', 'right-start', 'right', 'top-end', 'top-start', 'top']),
         /**
-         * Options provided to the [`Popper.js`](https://popper.js.org/docs/v2/constructors/#options) instance.
+         * Options provided to the [`PopperComponent.js`](https://popper.js.org/docs/v2/constructors/#options) instance.
          * @default {}
          */
         popperOptions: PropTypes.shape({
@@ -20979,14 +20979,14 @@ See https://mui.com/r/migration-v4/#mui-material-styles for more details.` );
          */
         popperRef: refType$1,
         /**
-         * The props used for each slot inside the Popper.
+         * The props used for each slot inside the PopperComponent.
          * @default {}
          */
         slotProps: PropTypes.shape({
             root: PropTypes.oneOfType([PropTypes.func, PropTypes.object])
         }),
         /**
-         * The components used for each slot inside the Popper.
+         * The components used for each slot inside the PopperComponent.
          * Either a string to use a HTML element or a component.
          * @default {}
          */
@@ -23173,7 +23173,7 @@ See https://mui.com/r/migration-v4/#mui-material-styles for more details.` );
          */
         disableListWrap: PropTypes.bool,
         /**
-         * If `true`, the `Popper` content will be under the DOM hierarchy of the parent component.
+         * If `true`, the `PopperComponent` content will be under the DOM hierarchy of the parent component.
          * @default false
          */
         disablePortal: PropTypes.bool,
@@ -23377,7 +23377,7 @@ See https://mui.com/r/migration-v4/#mui-material-styles for more details.` );
         PaperComponent: PropTypes.elementType,
         /**
          * The component used to position the popup.
-         * @default Popper
+         * @default PopperComponent
          */
         PopperComponent: PropTypes.elementType,
         /**
@@ -43501,11 +43501,11 @@ See https://mui.com/r/migration-v4/#mui-material-styles for more details.` );
         placement: PropTypes.oneOf(['bottom-end', 'bottom-start', 'bottom', 'left-end', 'left-start', 'left', 'right-end', 'right-start', 'right', 'top-end', 'top-start', 'top']),
         /**
          * The component used for the popper.
-         * @default Popper
+         * @default PopperComponent
          */
         PopperComponent: PropTypes.elementType,
         /**
-         * Props applied to the [`Popper`](/material-ui/api/popper/) element.
+         * Props applied to the [`PopperComponent`](/material-ui/api/popper/) element.
          * @default {}
          */
         PopperProps: PropTypes.object,

@@ -2,7 +2,7 @@ package com.endtoend.historyOfMine.utils;
 
 import com.endtoend.historyOfMine.forms.UserForm;
 import com.endtoend.historyOfMine.models.User;
-import com.endtoend.historyOfMine.utils.securityutils.BCryptEncodingUtils;
+import com.endtoend.historyOfMine.websecurity.securityutils.BCryptEncodingUtils;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 

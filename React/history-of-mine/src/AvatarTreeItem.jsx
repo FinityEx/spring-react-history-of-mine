@@ -1,20 +1,50 @@
-import {forwardRef, useImperativeHandle, useRef} from 'react';
-import {Avatar} from '@mui/material';
+import * as React from 'react';
+import {forwardRef, useImperativeHandle, useRef, useState} from 'react';
+import {Avatar, ButtonGroup} from '@mui/material';
 import {deepOrange} from "@mui/material/colors";
+import Popper from "@mui/material/Popper";
+import Fade from '@mui/material/Fade';
+import Button from "@mui/material/Button";
+import RelativeForm from "./RelativeForm"
 
-const AvatarTreeItem = forwardRef(({ treeId, connectId, as, alt, src, onClick, position}, ref) => {
+
+const AvatarTreeItem = forwardRef(({ treeId, connectId, as, alt, src, position}, ref) => {
     const divRef = useRef(null);
+    const [anchorEl, setAnchorEl] = useState(null);
+    const [anchorElB, setAnchorElB] = useState(null);
+    const openPopper = Boolean(anchorEl);
+    const openPopperB = Boolean(anchorElB)
 
     let divStyle = {
-        position: 'absolute',
+        position: 'fixed',
         left: position.left,
         top: position.top,
-        zIndex: 10000
     };
 
     useImperativeHandle(ref, () => ({
         ...divRef
     }));
+
+
+    const handleAnchorClick = (e) => {
+        setAnchorEl(e.currentTarget);
+        {console.log("dsjfjdsiofj")}
+
+    }
+
+    const handleAnchorBClick = (e) => {
+        setAnchorEl(null)
+        setAnchorElB(e.currentTarget)
+
+    }
+    const handleClickAway = () => {
+        if(anchorElB){
+            setAnchorElB(null)
+        }
+        else {
+            setAnchorEl(null)
+        }
+    }
 
     return (
         <div
@@ -23,17 +53,58 @@ const AvatarTreeItem = forwardRef(({ treeId, connectId, as, alt, src, onClick, p
             data-tree-connect-from={connectId}
             as={as}
             style={divStyle}
-            onClick={(e) => onClick(e, treeId, alt)}
+            onClick={handleAnchorClick}
         >
-            <Avatar
+            {/*<ClickAwayListener onClickAway={handleClickAway}>*/}
+        <div>
+                <Avatar
+
                     alt={alt}
                     src={src}
                     sx={{ width: 100,
                         height: 100,
                         bgcolor:  deepOrange[500]}}
-            >{alt}</Avatar>
+                >{alt}</Avatar>
+                <Popper
+                    id={openPopper ? 'transition-popper' : undefined}
+                    ref={divRef}
+                    placement={'top'}
+                    open={openPopper}
+                    anchorEl={anchorEl}
+                    transition>
+                    {({ TransitionProps }) => (
+                        <Fade {...TransitionProps} timeout={350}>
+                            <div>{
+                                <ButtonGroup ref={divRef} variant="contained" aria-label="outlined primary button group">
+                                    <Button >Show info card</Button>
+                                    <Button onClick={handleAnchorBClick}>Add new relative</Button>
+                                </ButtonGroup>
+                            }
+
+                            </div>
+                        </Fade>
+                    )}
+                </Popper>
+                <Popper
+                    id={openPopperB ? 'simple-popper' : undefined}
+                    ref={divRef}
+                    placement={'top'}
+                    open={openPopperB}
+                    anchorEl={anchorElB}
+                    transition>
+                    {({ TransitionProps }) => (
+                        <Fade {...TransitionProps} timeout={350}>
+                            <div>{
+                                <RelativeForm/>
+                            }
+                            </div>
+                        </Fade>
+                    )}
+                </Popper>
+            {/*</ClickAwayListener>*/}
         </div>
-    );
+        </div>
+);
 });
 
 
