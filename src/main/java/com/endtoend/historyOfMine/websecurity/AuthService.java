@@ -3,7 +3,7 @@ package com.endtoend.historyOfMine.websecurity;
 import com.endtoend.historyOfMine.forms.UserForm;
 import com.endtoend.historyOfMine.repositories.UsersRepository;
 import com.endtoend.historyOfMine.service.UserService;
-import com.endtoend.historyOfMine.websecurity.securityutils.JWTUtils;
+import com.endtoend.historyOfMine.utils.securityutils.JWTUtils;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.stereotype.Service;
