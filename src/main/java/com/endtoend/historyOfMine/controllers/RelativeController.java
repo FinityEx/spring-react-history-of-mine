@@ -1,7 +1,6 @@
 package com.endtoend.historyOfMine.controllers;
 
 import com.endtoend.historyOfMine.forms.RelativeDTO;
-import com.endtoend.historyOfMine.forms.RelativeForm;
 import com.endtoend.historyOfMine.service.RelativeService;
 import com.endtoend.historyOfMine.service.UserService;
 import com.endtoend.historyOfMine.utils.Mapper;
@@ -10,6 +9,7 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -29,11 +29,16 @@ public class RelativeController {
     }
 
     @PostMapping
-    public void addRelative(@RequestBody RelativeForm relativeForm){
+    public void addRelativeOfUser(@RequestBody RelativeDTO relativeDTO) throws ParseException {
         var loggedUser = userService.getLoggedUser();
-        relativeForm.setRelatedTo(loggedUser.getId());
-        relativeForm.setUser(loggedUser);
-        relativeService.addRelative(relativeForm);
+
+        relativeDTO.setRelativeId(loggedUser.getId());
+        relativeService.addRelativeOfUser(relativeDTO);
+    }
+
+    @PostMapping("relative-of")
+    public void addRelativeOfRelative(@RequestBody RelativeDTO relativeDTO) throws ParseException{
+        relativeService.addRelativeOfRelative(relativeDTO);
     }
 
     @GetMapping
@@ -47,6 +52,19 @@ public class RelativeController {
         }
         return response;
     }
+
+
+//    @GetMapping
+//    @ResponseBody
+//    public List<RelativeDTO> getAllRelatives(){
+//        var list = relativeService.getAllUserRelatives();
+//        var response = new ArrayList<RelativeDTO>();
+//
+//        for(var relative : list) {
+//            response.add(mapper.convertToDTO(relative));
+//        }
+//        return response;
+//    }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)

@@ -7,8 +7,8 @@ const Tree = ({ children, containerRef }) => {
   const [arrows, setArrows] = useState([]);
 
   useMutationObserver(containerRef, () => {
-    clearArrows();
-    drawArrows();
+    // clearArrows();
+    // drawArrows();
   });
 
   useEffect(() => {

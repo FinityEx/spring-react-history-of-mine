@@ -14,11 +14,8 @@ import java.util.*;
     private Integer id;
     @Column(nullable = false, unique = true)
     private String username;
-    @Column
     private String password;
-    @Column
     private String email;
-    @Column
     private boolean accountNonLocked;
     private boolean enabled;
     @Enumerated(EnumType.STRING)
@@ -27,7 +24,6 @@ import java.util.*;
     private String sex;
     private String lastName;
     private Date birth;
-    @Column(name = "place_of_birth")
     private String placeOfBirth;
     @OneToMany(mappedBy = "user")
     private List<Relative> relatives;
