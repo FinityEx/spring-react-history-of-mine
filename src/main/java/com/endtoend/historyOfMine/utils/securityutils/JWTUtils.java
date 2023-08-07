@@ -1,4 +1,4 @@
-package com.endtoend.historyOfMine.websecurity.securityutils;
+package com.endtoend.historyOfMine.utils.securityutils;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtParser;
