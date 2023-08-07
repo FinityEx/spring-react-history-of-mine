@@ -22,28 +22,19 @@ public class RelativeDTO {
     private String placeOfBirth;
     private Integer relatedTo;
     private String as;
-    private Integer relativeId;
-
-    public Integer getRelativeId() {
-        return relativeId;
-    }
-
-    public void setRelativeId(Integer relativeId) {
-        this.relativeId = relativeId;
-    }
 
     public Date getBirth() throws ParseException {
-        return birth == null ? null : dateFormat.parse(this.birth);
+        return dateFormat.parse(this.birth);
     }
     public void setBirth(Date birth){
         if(birth != null) {
             this.birth = dateFormat.format(birth);
         }
     }
-    public Date getDeath() throws ParseException {
-        return death == null ? null : dateFormat.parse(this.death);
-    }
 
+    public Date getDeath() throws ParseException {
+        return dateFormat.parse(this.death);
+    }
     public void setDeath(Date death) {
         if(death != null) {
             this.death = dateFormat.format(death);

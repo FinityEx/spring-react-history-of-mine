@@ -1,4 +1,4 @@
-package com.endtoend.historyOfMine.websecurity.securityutils;
+package com.endtoend.historyOfMine.utils.securityutils;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;

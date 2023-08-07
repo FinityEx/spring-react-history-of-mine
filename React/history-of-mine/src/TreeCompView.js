@@ -1,4 +1,3 @@
-import * as React from "react";
 import {useEffect, useRef, useState} from "react";
 import Tree from "./Tree";
 import AvatarTreeItem from "./AvatarTreeItem";
@@ -59,8 +58,9 @@ export default function TreeCompView(){
         }).then((response) => {
             if(response.data != null) {
                 console.log(response.data)
-                addAvatar(e, 302, 1, "SELF", "MALE", "Wojtek");
+                addAvatar(e, 302, 302, "SELF", "MALE", "Wojtek");
                 const arr = response.data
+                avList.find((av) => av.as)
                 arr.forEach((obj) => addAvatar(e, obj.id, obj.relatedTo, obj.as, obj.sex, obj.name))
             }
         })
@@ -80,6 +80,7 @@ export default function TreeCompView(){
                 connectId={id}
                 as={as}
                 containerRef={ref}
+                onClick={addAvatar}
             ></AvatarTreeItem>]});
     };
 
